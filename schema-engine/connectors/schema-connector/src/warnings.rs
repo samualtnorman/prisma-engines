@@ -136,6 +136,8 @@ pub struct Warnings {
     pub json_schema_defined: Vec<Model>,
     /// Warning about JSONSchema on a model.
     pub capped_collection: Vec<Model>,
+    /// Warning about FDW model.
+    pub foreign_data_wrapper: Vec<Model>,
 }
 
 impl Warnings {
@@ -421,6 +423,12 @@ impl fmt::Display for Warnings {
         render_warnings(
             "The following models are capped collections, which are not yet fully supported. Read more: https://pris.ly/d/mongodb-capped-collections",
             &self.capped_collection,
+            f
+        )?;
+
+        render_warnings(
+            "The following models are foreign data wrappers, which are not yet fully supported. Read more: https://pris.ly/d/fdw",
+            &self.foreign_data_wrapper,
             f
         )?;
 
